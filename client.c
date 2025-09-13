@@ -6,7 +6,7 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:19:03 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 17:16:18 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/13 17:38:56 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	main(int argc, char *argv[])
 
 	if (argc != 3)
 		return (0);
+	sa.sa_flags = 0;
 	sa.sa_handler = ack_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
 	server_pid = ft_atoi(argv[1]);
 	str = argv[2];

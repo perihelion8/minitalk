@@ -6,7 +6,7 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 03:17:36 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 17:01:44 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/13 17:38:41 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <signal.h>
 #include "ft_printf.h"
 
-void	signal_handle(int sig, siginfo_t *info, void *context)
+static void	signal_handler(int sig, siginfo_t *info, void *context)
 {
 	static char	c[2];
 
@@ -38,8 +38,8 @@ int	main(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_sigaction = signal_handle;
 	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = signal_handler;
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGUSR1);
 	sigaddset(&sa.sa_mask, SIGUSR2);
