@@ -6,14 +6,14 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:19:03 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 17:38:56 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/16 01:38:58 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include "libft.h"
 
-static volatile sig_atomic_t	g_ack_received = 0;
+static volatile sig_atomic_t	g_ack_received;
 
 static void	ack_handler(int sig)
 {
