@@ -14,11 +14,11 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	const uint8_t	*srcb;
-	uint8_t			*dstb;
+	const unsigned char	*srcb;
+	unsigned char		*dstb;
 
-	srcb = (const uint8_t *) src;
-	dstb = (uint8_t *) dst;
+	srcb = (const unsigned char *) src;
+	dstb = (unsigned char *) dst;
 	if (dstb > srcb)
 	{
 		dstb += n - 1;

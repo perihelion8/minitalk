@@ -14,14 +14,14 @@
 
 int	ft_memcmp(const void *m1, const void *m2, size_t n)
 {
-	const uint8_t	*m1b;
-	const uint8_t	*m2b;
-	size_t			i;
+	const unsigned char	*m1b;
+	const unsigned char	*m2b;
+	size_t				i;
 
 	if (n == 0)
 		return (0);
-	m1b = (const uint8_t *) m1;
-	m2b = (const uint8_t *) m2;
+	m1b = (const unsigned char *) m1;
+	m2b = (const unsigned char *) m2;
 	i = 0;
 	while (m1b[i] == m2b[i] && i + 1 < n)
 		i++;
