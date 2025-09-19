@@ -6,7 +6,7 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 22:27:22 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 02:46:00 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/19 03:11:34 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static void	init_num_prop(int n, t_numprop *prop, t_flag *flag)
 	if (n == 0 && flag->precision == 0)
 		prop->digit_len = 0;
 	prop->prec_len = ft_printf_int_max(prop->digit_len, flag->precision);
-	if (n < 0 || (n >= 0 && (flag->plus || flag->space)))
+	if (n < 0 || (n >= 0 && (flag->show_sign || flag->pad_positive)))
 		prop->core_len = prop->prec_len + 1;
 	else
 		prop->core_len = prop->prec_len;
 	prop->total_len = ft_printf_int_max(prop->core_len, flag->width);
 	if (flag->precision != -1)
 		prop->width_char = ' ';
-	else if (flag->zero)
+	else if (flag->zero_fill)
 		prop->width_char = '0';
 	else
 		prop->width_char = ' ';
@@ -69,9 +69,9 @@ static int	print_core(long n, t_numprop *prop, t_flag *flag)
 		write(1, "-", 1);
 		n = -n;
 	}
-	else if (flag->plus)
+	else if (flag->show_sign)
 		write(1, "+", 1);
-	else if (flag->space)
+	else if (flag->pad_positive)
 		write(1, " ", 1);
 	ft_printf_repeat_c('0', prop->prec_len - prop->digit_len);
 	ft_putnbrl(n);
@@ -87,7 +87,7 @@ int	ft_printf_d(int n, t_flag *flag)
 	init_num_prop(n, &prop, flag);
 	if (prop.total_len > prop.core_len)
 	{
-		if (flag->minus)
+		if (flag->left_align)
 		{
 			print_core(num, &prop, flag);
 			ft_printf_repeat_c(prop.width_char, prop.total_len - prop.core_len);

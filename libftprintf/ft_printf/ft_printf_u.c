@@ -6,7 +6,7 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 13:24:50 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 02:46:38 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/19 03:12:03 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	init_num_prop(int n, t_numprop *prop, t_flag *flag)
 	prop->total_len = ft_printf_int_max(prop->prec_len, flag->width);
 	if (flag->precision != -1)
 		prop->width_char = ' ';
-	else if (flag->zero)
+	else if (flag->zero_fill)
 		prop->width_char = '0';
 	else
 		prop->width_char = ' ';
@@ -65,7 +65,7 @@ int	ft_printf_u(t_uint n, t_flag *flag)
 	init_num_prop(n, &prop, flag);
 	if (prop.total_len > prop.prec_len)
 	{
-		if (flag->minus)
+		if (flag->left_align)
 		{
 			print_core(n, &prop, flag);
 			ft_printf_repeat_c(' ', prop.total_len - prop.prec_len);

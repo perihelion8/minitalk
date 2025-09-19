@@ -6,7 +6,7 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 20:52:45 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 02:46:30 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/19 03:11:56 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_printf_s(const char *s, t_flag *flag)
 	len = str_visible_len(s, flag->precision);
 	if (len < flag->width)
 	{
-		if (flag->minus)
+		if (flag->left_align)
 		{
 			write(1, s, len);
 			ft_printf_repeat_c(' ', flag->width - len);

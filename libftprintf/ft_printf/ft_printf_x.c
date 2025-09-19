@@ -6,7 +6,7 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:01:44 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 02:46:51 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/19 03:12:28 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	digits_count(t_uint n)
 	return (count);
 }
 
-static void	init_num_prop(int n, t_byte upper_x, t_numprop *prop, t_flag *flag)
+static void	init_num_prop(int n, bool upper_x, t_numprop *prop, t_flag *flag)
 {
 	prop->digit_len = digits_count(n);
 	if (n == 0 && flag->precision == 0)
@@ -38,7 +38,7 @@ static void	init_num_prop(int n, t_byte upper_x, t_numprop *prop, t_flag *flag)
 	prop->upper_x = upper_x;
 	if (flag->precision != -1)
 		prop->width_char = ' ';
-	else if (flag->zero)
+	else if (flag->zero_fill)
 		prop->width_char = '0';
 	else if (flag->width)
 		prop->width_char = ' ';
@@ -59,9 +59,9 @@ static int	print_core(t_uint n, t_numprop *prop, t_flag *flag)
 	prefix_len = 0;
 	if (n == 0 && flag->precision == 0)
 		return (0);
-	if (flag->hash && prop->upper_x && n > 0)
+	if (flag->alternate_form && prop->upper_x && n > 0)
 		prefix_len += write(1, "0X", 2);
-	else if (flag->hash && n > 0)
+	else if (flag->alternate_form && n > 0)
 		prefix_len += write(1, "0x", 2);
 	ft_printf_repeat_c('0', prop->prec_len - prop->digit_len);
 	if (prop->upper_x)
@@ -72,14 +72,14 @@ static int	print_core(t_uint n, t_numprop *prop, t_flag *flag)
 	return (prop->core_len + prefix_len);
 }
 
-int	ft_printf_x(t_uint n, t_byte upper_x, t_flag *flag)
+int	ft_printf_x(t_uint n, bool upper_x, t_flag *flag)
 {
 	t_numprop	prop;
 
 	init_num_prop(n, upper_x, &prop, flag);
 	if (prop.core_len < prop.total_len)
 	{
-		if (flag->minus)
+		if (flag->left_align)
 		{
 			print_core(n, &prop, flag);
 			ft_printf_repeat_c(' ', prop.total_len - prop.core_len);

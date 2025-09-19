@@ -6,18 +6,17 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:50:54 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/12 20:04:28 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/19 02:00:07 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <stdint.h>
 
-typedef unsigned char	t_byte;
 typedef unsigned int	t_uint;
 
 typedef struct s_list
@@ -49,7 +48,7 @@ void	*ft_memmove(void *dst, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_substr(const char *s, size_t start, size_t len);
+char	*ft_substr(const char *s, t_uint start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strtrim(const char *s, const char *set);
 char	**ft_split(const char *s, char c);

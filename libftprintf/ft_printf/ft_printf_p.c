@@ -6,7 +6,7 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:14:59 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 02:46:22 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/19 03:11:47 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	init_num_prop(unsigned long n, t_numprop *prop, t_flag *flag)
 	prop->total_len = ft_printf_int_max(prop->digit_len, flag->width);
 	if (flag->precision != -1)
 		prop->width_char = ' ';
-	else if (flag->zero)
+	else if (flag->zero_fill)
 		prop->width_char = '0';
 	else
 		prop->width_char = ' ';
@@ -48,15 +48,15 @@ static void	puthex(unsigned long n, char *hex)
 	ft_putchar_fd(hex[n % 16], 1);
 }
 
-static int	print_core(unsigned long n, int digit_len, int zero_total_len)
+static int	print_core(unsigned long n, int digit_len, int zero_fill_total_len)
 {
 	int	len;
 
 	if (n == 0)
 		return (write(1, "(nil)", 5));
 	write(1, "0x", 2);
-	len = zero_total_len;
-	ft_printf_repeat_c('0', zero_total_len);
+	len = zero_fill_total_len;
+	ft_printf_repeat_c('0', zero_fill_total_len);
 	len += digit_len;
 	puthex(n, "0123456789abcdef");
 	return (len);
@@ -72,7 +72,7 @@ int	ft_printf_p(void *ptr, t_flag *flag)
 	init_num_prop(n, &prop, flag);
 	if (prop.total_len > prop.digit_len)
 	{
-		if (flag->minus)
+		if (flag->left_align)
 		{
 			print_core(n, prop.digit_len, 0);
 			ft_printf_repeat_c(' ', prop.total_len - prop.digit_len);

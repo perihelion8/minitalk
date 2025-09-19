@@ -6,7 +6,7 @@
 /*   By: abazzoun <abazzoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 20:40:48 by abazzoun          #+#    #+#             */
-/*   Updated: 2025/09/13 02:45:31 by abazzoun         ###   ########.fr       */
+/*   Updated: 2025/09/19 03:11:19 by abazzoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	initialize_flag(t_flag *flag)
 {
-	flag->space = 0;
-	flag->plus = 0;
-	flag->hash = 0;
-	flag->minus = 0;
-	flag->zero = 0;
+	flag->pad_positive = false;
+	flag->show_sign = false;
+	flag->alternate_form = false;
+	flag->left_align = false;
+	flag->zero_fill = false;
 	flag->width = -1;
 	flag->precision = -1;
 }
@@ -29,15 +29,15 @@ static const char	*printf_flags(const char *s, t_flag *flag)
 	while (*s && ft_strchr(" +#-0", *s) != NULL)
 	{
 		if (*s == ' ')
-			flag->space = 1;
+			flag->pad_positive = true;
 		else if (*s == '+')
-			flag->plus = 1;
+			flag->show_sign = true;
 		else if (*s == '#')
-			flag->hash = 1;
+			flag->alternate_form = true;
 		if (*s == '-')
-			flag->minus = 1;
+			flag->left_align = true;
 		else if (*s == '0')
-			flag->zero = 1;
+			flag->zero_fill = true;
 		s++;
 	}
 	flag->width = ft_atoi(s);
